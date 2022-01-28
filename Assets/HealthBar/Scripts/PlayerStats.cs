@@ -5,20 +5,28 @@ using UnityEngine.Events;
 
 public class PlayerStats : MonoBehaviour
 {
+    [SerializeField] private float _maxHealth;
     [SerializeField] private float _health;
     [SerializeField] private UnityEvent _changeHealth;
 
     public float Health => _health;
+    public float MaxHealth => _maxHealth;
 
     public void TakeDamage(float value)
     {
-        _health -= value;
-        _changeHealth?.Invoke();
+        if (_health > 0)
+        {
+            _health -= value;
+            _changeHealth?.Invoke();
+        }
     }
 
-    public void TakeHealth(float value)
+        public void TakeHealth(float value)
     {
-        _health += value;
-        _changeHealth?.Invoke();
+        if (_health < _maxHealth)
+        {
+            _health += value;
+            _changeHealth?.Invoke();
+        }
     }
 }

@@ -15,6 +15,7 @@ public class Presenter : MonoBehaviour
 
     private void Awake()
     {
+        _sliderHP.maxValue = _player.MaxHealth;
         _sliderHP.value = _player.Health;
     }
 
