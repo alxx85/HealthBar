@@ -7,25 +7,33 @@ public class Presenter : MonoBehaviour
 {
     [SerializeField] private Slider _sliderHP;
     [SerializeField] private float _changeSpeed;
+    [SerializeField] private PlayerStats _player;
 
-    private float _currentHealth = 50f;
+    private float _currentHealth;
+    private Coroutine _changeHealthView;
+    private WaitForEndOfFrame _wait = new WaitForEndOfFrame();
 
-
-    private void Start()
+    private void Awake()
     {
-        _sliderHP.value = _currentHealth;
+        _sliderHP.value = _player.Health;
     }
 
-    private void Update()
+    public void ChangeHealth()
     {
-        if (_currentHealth != _sliderHP.value)
+        if (_changeHealthView != null)
+        {
+            StopCoroutine(_changeHealthView);
+        }
+        _currentHealth = _player.Health;
+        _changeHealthView = StartCoroutine(ChangeViewHealth());
+    }
+
+    private IEnumerator ChangeViewHealth()
+    {
+        while (_sliderHP.value != _currentHealth)
         {
             _sliderHP.value = Mathf.MoveTowards(_sliderHP.value, _currentHealth, _changeSpeed * Time.deltaTime);
+            yield return _wait;
         }
-    }
-
-    public void ChangeHealth(float value)
-    {
-        _currentHealth += value;
     }
 }
