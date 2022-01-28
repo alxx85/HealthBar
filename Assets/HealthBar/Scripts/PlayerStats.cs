@@ -21,7 +21,7 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-        public void TakeHealth(float value)
+    public void TakeHealth(float value)
     {
         if (_health < _maxHealth)
         {
