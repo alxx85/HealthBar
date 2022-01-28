@@ -9,12 +9,14 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float _health;
     [SerializeField] private UnityEvent _changeHealth;
 
+    private const float MinHealth = 0;
+
     public float Health => _health;
     public float MaxHealth => _maxHealth;
 
     public void TakeDamage(float value)
     {
-        if (_health > 0)
+        if (_health > MinHealth)
         {
             _health -= value;
             _changeHealth?.Invoke();
