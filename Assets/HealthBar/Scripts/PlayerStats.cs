@@ -19,6 +19,7 @@ public class PlayerStats : MonoBehaviour
         if (_health > MinHealth)
         {
             _health -= value;
+            _health = Mathf.Clamp(_health, MinHealth, _maxHealth);
             _changeHealth?.Invoke();
         }
     }
@@ -28,6 +29,7 @@ public class PlayerStats : MonoBehaviour
         if (_health < _maxHealth)
         {
             _health += value;
+            _health = Mathf.Clamp(_health, MinHealth, _maxHealth);
             _changeHealth?.Invoke();
         }
     }
